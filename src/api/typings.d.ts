@@ -5,6 +5,12 @@ declare namespace API {
     message?: string
   }
 
+  type BaseResponseInt_ = {
+    code?: number
+    data?: number
+    message?: string
+  }
+
   type BaseResponseLoginUserVO_ = {
     code?: number
     data?: LoginUserVO
@@ -176,11 +182,20 @@ declare namespace API {
     picScale?: number
     picSize?: number
     picWidth?: number
+    reviewMessage?: string
+    reviewStatus?: number
+    reviewerId?: number
     searchText?: string
     sortField?: string
     sortOrder?: string
     tags?: string[]
     userId?: number
+  }
+
+  type PictureReviewRequest = {
+    id?: number
+    reviewMessage?: string
+    reviewStatus?: number
   }
 
   type PictureTagCategory = {
@@ -193,6 +208,22 @@ declare namespace API {
     id?: number
     introduction?: string
     name?: string
+    tags?: string[]
+  }
+
+  type PictureUploadByBatchRequest = {
+    category?: string
+    count?: number
+    namePrefix?: string
+    searchText?: string
+    tags?: string[]
+  }
+
+  type PictureUploadRequest = {
+    category?: string
+    fileUrl?: string
+    id?: number
+    picName?: string
     tags?: string[]
   }
 
@@ -221,7 +252,11 @@ declare namespace API {
   }
 
   type uploadPictureUsingPOSTParams = {
+    category?: string
+    fileUrl?: string
     id?: number
+    picName?: string
+    tags?: string[]
   }
 
   type User = {
