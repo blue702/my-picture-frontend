@@ -1,12 +1,16 @@
 <template>
   <div id="basicLayout">
     <a-layout style="min-height: 100vh">
-      <a-layout-header class="header">
+<!--    固定导航头  :style="{ position: 'fixed', zIndex: 1, width: '100%' }"-->
+      <a-layout-header class="header" >
         <GlobalHeader />
       </a-layout-header>
-      <a-layout-content class="content">
-        <router-view />
-      </a-layout-content>
+      <a-layout>
+        <GlobalSider class="sider" />
+        <a-layout-content class="content">
+          <router-view />
+        </a-layout-content>
+      </a-layout>
       <a-layout-footer class="footer">
         <a href="https://github.com/blue702/my-picture-backend" target="_blank">
           项目源码 by blue702
@@ -18,6 +22,7 @@
 
 <script setup lang="ts">
 import GlobalHeader from '@/components/GlobalHeader.vue'
+import GlobalSider from '@/components/GlobalSider.vue'
 </script>
 
 
@@ -41,6 +46,16 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 #basicLayout .content {
   background: linear-gradient(to right, #fefefe, #fff);
   margin-bottom: 28px;
-  padding: 20px;
+  padding: 28px;
+}
+#basicLayout .sider {
+  background: #fff;
+  padding-top: 20px;
+  border-right: 0.5px solid #eee;
+}
+
+#basicLayout :deep(.ant-menu-root) {
+  border-bottom: none !important;
+  border-inline-end: none !important;
 }
 </style>

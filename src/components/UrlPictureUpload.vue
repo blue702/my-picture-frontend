@@ -22,6 +22,7 @@ import { uploadPictureByUrlUsingPost, uploadPictureUsingPost } from '@/api/pictu
 // 接收父组件传递的图片信息
 interface Props {
   picture?: API.PictureVO
+  spaceId?: number
   // 成功回调函数，上传成功后执行
   onSuccess?: (newPicture: API.PictureVO) => void
 }
@@ -48,6 +49,7 @@ const handleUpload = async () => {
   loading.value = true
   try {
     const params: API.PictureUploadRequest = { fileUrl: fileUrl.value }
+    params.spaceId = props.spaceId;
     if (props.picture) {
       params.id = props.picture.id
     }

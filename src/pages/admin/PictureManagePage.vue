@@ -11,7 +11,7 @@
       </a-form-item>
       <a-form-item label="类型" name="category">
         <a-auto-complete
-          style="min-width: 180px"
+          style="min-width: 150px"
           v-model:value="searchParams.category"
           :options="categoryOptions"
           placeholder="请输入类型"
@@ -23,7 +23,7 @@
           :options="tagOptions"
           mode="tags"
           placeholder="请输入标签"
-          style="min-width: 180px"
+          style="min-width: 150px"
           allow-clear
         />
       </a-form-item>
@@ -32,7 +32,7 @@
           v-model:value="searchParams.reviewStatus"
           :options="PIC_REVIEW_STATUS_OPTIONS"
           placeholder="请输入审核状态"
-          style="min-width: 180px"
+          style="min-width: 150px"
           allow-clear
         />
       </a-form-item>
@@ -83,23 +83,21 @@
           <a-space wrap>
             <a-button
               v-if="record.reviewStatus !== PIC_REVIEW_STATUS_ENUM.PASS"
-              type="link"
               @click="handleReview(record, PIC_REVIEW_STATUS_ENUM.PASS)"
             >
               通过
             </a-button>
             <a-button
               v-if="record.reviewStatus !== PIC_REVIEW_STATUS_ENUM.REJECT"
-              type="link"
               danger
               @click="handleReview(record, PIC_REVIEW_STATUS_ENUM.REJECT)"
             >
               拒绝
             </a-button>
-            <a-button type="link" :href="`/add_picture?id=${record.id}`" target="_blank"
+            <a-button  :href="`/add_picture?id=${record.id}`" target="_blank"
             >编辑
             </a-button>
-            <a-button type="link" danger @click="doDelete(record.id)">删除</a-button>
+            <a-button  danger @click="doDelete(record.id)">删除</a-button>
           </a-space>
         </template>
 
@@ -205,6 +203,7 @@ const pagination = computed(() => {
 const fetchData = async () => {
   const res = await listPictureByPageUsingPost({
     ...searchParams,
+    nullSpaceId: true,
   })
   if (res.data.data) {
     dataList.value = res.data.data.records ?? []
