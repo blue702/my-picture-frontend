@@ -31,7 +31,7 @@
       <template #bodyCell="{ column, record }">
         <!-- 空间级别 -->
         <template v-if="column.dataIndex === 'spaceLevel'">
-          <a-tag>{{ SPACE_LEVEL_MAP[record.spaceLevel] }}</a-tag>
+          <a-tag :color=SPACE_LEVEL_COLOUR_MAP[record.spaceLevel]>{{ SPACE_LEVEL_MAP[record.spaceLevel] }}</a-tag>
         </template>
         <!-- 使用情况 -->
         <template v-if="column.dataIndex === 'spaceUseInfo'">
@@ -67,7 +67,7 @@ import {
 } from '@/api/spaceController.ts'
 import { message } from 'ant-design-vue'
 import dayjs from 'dayjs'
-import { SPACE_LEVEL_MAP, SPACE_LEVEL_OPTIONS } from '@/constants/space.ts'
+import { SPACE_LEVEL_COLOUR_MAP, SPACE_LEVEL_MAP, SPACE_LEVEL_OPTIONS } from '@/constants/space.ts'
 import { formatSize } from '@/utils'
 
 const columns = [

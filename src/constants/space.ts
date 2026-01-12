@@ -20,3 +20,11 @@ export const SPACE_LEVEL_OPTIONS = Object.keys(SPACE_LEVEL_MAP).map((key) => {
     value,
   };
 });
+
+//
+export const SPACE_LEVEL_COLOUR_MAP:Record<number, string> = {
+  0:  '' ,      // 0 - 无颜色（默认）
+  1: 'blue',  // 1 - 蓝色
+  2: 'gold'    // 2 - 金色
+}
+

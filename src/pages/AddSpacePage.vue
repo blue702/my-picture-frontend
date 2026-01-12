@@ -47,6 +47,10 @@ import {
 import { message } from 'ant-design-vue'
 import { SPACE_LEVEL_ENUM, SPACE_LEVEL_OPTIONS } from '@/constants/space.ts'
 import { formatSize } from '../utils'
+import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
+
+const loginUserStore = useLoginUserStore()
+const loginUser = loginUserStore.loginUser
 
 const route = useRoute()
 
@@ -82,6 +86,12 @@ const handleSubmit = async (values: any) => {
   }
   if (res.data.code === 0 && res.data.data) {
     message.success('操作成功')
+    // 如果是管理员，跳转到空间管理页面
+    if(loginUser.userRole == 'admin' && oldSpace.value?.userId != loginUser.id){
+      router.replace('/admin/spaceManage')
+      return
+    }
+    // 其他情况跳转到空间详情页
     let path = `/space/${spaceId ?? res.data.data}`
     router.push({
       path,

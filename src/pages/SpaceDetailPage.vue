@@ -3,7 +3,7 @@
     <!-- 空间信息 -->
     <a-flex justify="space-between">
       <div>
-        <h2>{{ space.spaceName }} </h2>
+        <h2>{{ space.spaceName }} <a-tag :color=SPACE_LEVEL_COLOUR_MAP[space.spaceLevel]> {{ SPACE_LEVEL_MAP[space.spaceLevel] }}</a-tag></h2>
         <a-typography-paragraph type="secondary">
           空间id：{{ space.id }}
         </a-typography-paragraph>
@@ -27,7 +27,7 @@
     <div style="margin-bottom: 16px"/>
 
     <!-- 图片列表 -->
-    <PictureList :dataList="dataList" :loading="loading" :showOp="true" :onReload="fetchData"/>
+    <PictureList :dataList="dataList" :loading="loading" :showOp="true" :onReload="fetchSpaceDetailAndPicture"/>
     <!--  分页  -->
     <a-pagination
       style="text-align: right"
@@ -47,11 +47,18 @@ import { message } from 'ant-design-vue'
 import { listPictureVoByPageUsingPost } from '@/api/pictureController.ts'
 import { formatSize } from '@/utils'
 import PictureList from '@/components/PictureList.vue'
+import { SPACE_LEVEL_COLOUR_MAP, SPACE_LEVEL_MAP } from '@/constants/space.ts'
 
 const props = defineProps<{
   id: string | number
 }>()
 const space = ref<API.SpaceVO>({})
+
+// 删除图片后，既要刷新图片，也要刷新下空间的使用情祝
+const fetchSpaceDetailAndPicture = async () => {
+   await fetchSpaceDetail()
+   await fetchData()
+}
 
 // 获取空间详情
 const fetchSpaceDetail = async () => {
