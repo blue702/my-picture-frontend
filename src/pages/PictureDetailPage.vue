@@ -59,7 +59,12 @@
                 <DownloadOutlined />
               </template>
             </a-button>
-
+            <a-button type="default" @click="doSearch">
+              以图搜图
+              <template #icon>
+                <SearchOutlined />
+              </template>
+            </a-button>
             <a-button v-if="canEdit" type="default" @click="doEdit">
               编辑
               <template #icon>
@@ -85,10 +90,10 @@
 import { computed, onMounted, ref } from 'vue'
 import { deletePictureUsingPost, getPictureVoByIdUsingGet } from '@/api/pictureController.ts'
 import { message } from 'ant-design-vue'
-import { downloadImage, formatSize } from '../utils'
+import { downloadImage, formatSize } from '@/utils'
 import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
 import { useRouter } from 'vue-router'
-
+import { DeleteOutlined,EditOutlined,SearchOutlined,DownloadOutlined } from '@ant-design/icons-vue'
 const props = defineProps<{
   id: string | number
 }>()
@@ -160,6 +165,11 @@ const doDelete = async () => {
 // 处理下载
 const doDownload = () => {
   downloadImage(picture.value.url, picture.value.name)
+}
+
+// 搜索
+const doSearch = () => {
+  window.open(`/search_picture?pictureId=${picture.value.id}`)
 }
 
 </script>
