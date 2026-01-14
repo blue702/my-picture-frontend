@@ -4,9 +4,11 @@
       <!-- 图片展示区 -->
       <a-col :sm="24" :md="16" :xl="18">
         <a-card title="图片预览">
-          <div style="display: flex; justify-content: center; align-items: center; min-height: 300px;">
+          <div
+            style="display: flex; justify-content: center; align-items: center; min-height: 300px"
+          >
             <a-image
-              style="max-height: 600px; object-fit: contain; max-width: 100%;"
+              style="max-height: 600px; object-fit: contain; max-width: 100%"
               :src="picture.url"
             />
           </div>
@@ -51,6 +53,20 @@
             <a-descriptions-item label="大小">
               {{ formatSize(picture.picSize) }}
             </a-descriptions-item>
+            <a-descriptions-item label="主色调">
+              <a-space>
+                {{ picture.picColor ?? '-' }}
+                <div
+                  v-if="picture.picColor"
+                  :style="{
+                    backgroundColor: toHexColor(picture.picColor),
+                    width: '16px',
+                    height: '16px',
+                    borderRadius: '50%',
+                  }"
+                />
+              </a-space>
+            </a-descriptions-item>
           </a-descriptions>
           <a-space wrap>
             <a-button type="primary" @click="doDownload">
@@ -65,6 +81,12 @@
                 <SearchOutlined />
               </template>
             </a-button>
+            <a-button type="primary" ghost @click="doShare">
+              分享
+              <template #icon>
+                <share-alt-outlined />
+              </template>
+            </a-button>
             <a-button v-if="canEdit" type="default" @click="doEdit">
               编辑
               <template #icon>
@@ -72,17 +94,15 @@
               </template>
             </a-button>
             <a-button v-if="canEdit" danger @click="doDelete">
-              删除
+
               <template #icon>
                 <DeleteOutlined />
               </template>
             </a-button>
           </a-space>
-
         </a-card>
       </a-col>
     </a-row>
-
   </div>
 </template>
 
@@ -90,10 +110,16 @@
 import { computed, onMounted, ref } from 'vue'
 import { deletePictureUsingPost, getPictureVoByIdUsingGet } from '@/api/pictureController.ts'
 import { message } from 'ant-design-vue'
-import { downloadImage, formatSize } from '@/utils'
+import { downloadImage, formatSize, toHexColor } from '@/utils'
 import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
 import { useRouter } from 'vue-router'
-import { DeleteOutlined,EditOutlined,SearchOutlined,DownloadOutlined } from '@ant-design/icons-vue'
+import {
+  DeleteOutlined,
+  EditOutlined,
+  SearchOutlined,
+  DownloadOutlined,
+  ShareAltOutlined
+} from '@ant-design/icons-vue'
 const props = defineProps<{
   id: string | number
 }>()
@@ -120,11 +146,10 @@ onMounted(() => {
   fetchPictureDetail()
 })
 
-
 const loginUserStore = useLoginUserStore()
 // 是否具有编辑权限
 const canEdit = computed(() => {
-  const loginUser = loginUserStore.loginUser;
+  const loginUser = loginUserStore.loginUser
   // 未登录不可编辑
   if (!loginUser.id) {
     return false
@@ -142,8 +167,8 @@ const doEdit = () => {
     path: '/add_picture',
     query: {
       id: picture.value.id,
-      spaceId: picture.value.spaceId
-    }
+      spaceId: picture.value.spaceId,
+    },
   })
 }
 // 删除
@@ -172,8 +197,18 @@ const doSearch = () => {
   window.open(`/search_picture?pictureId=${picture.value.id}`)
 }
 
+// 分享弹窗引用
+const shareModalRef = ref()
+// 分享链接
+const shareLink = ref<string>()
+
+// 分享
+const doShare = (picture: API.PictureVO, e: Event) => {
+  shareLink.value = `${window.location.protocol}//${window.location.host}/picture/${picture.id}`
+  if (shareModalRef.value) {
+    shareModalRef.value.openModal()
+  }
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
