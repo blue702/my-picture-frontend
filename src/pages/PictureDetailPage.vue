@@ -103,6 +103,7 @@
         </a-card>
       </a-col>
     </a-row>
+    <ShareModal ref="shareModalRef" :link="shareLink" />
   </div>
 </template>
 
@@ -120,6 +121,7 @@ import {
   DownloadOutlined,
   ShareAltOutlined
 } from '@ant-design/icons-vue'
+import ShareModal from '@/components/ShareModal.vue'
 const props = defineProps<{
   id: string | number
 }>()
@@ -203,12 +205,14 @@ const shareModalRef = ref()
 const shareLink = ref<string>()
 
 // 分享
-const doShare = (picture: API.PictureVO, e: Event) => {
-  shareLink.value = `${window.location.protocol}//${window.location.host}/picture/${picture.id}`
+const doShare = () => {
+  shareLink.value = `${window.location.protocol}//${window.location.host}/picture/${picture.value.id}`
   if (shareModalRef.value) {
     shareModalRef.value.openModal()
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
