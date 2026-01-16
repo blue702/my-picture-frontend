@@ -30,7 +30,7 @@
       </a-form-item>
       <a-form-item label="日期" name="dateRange">
         <a-range-picker
-          style="width: 400px"
+          style="width: 462px"
           show-time
           v-model:value="dateRange"
           :placeholder="['编辑开始日期', '编辑结束时间']"
@@ -56,8 +56,8 @@
       </a-form-item>
       <a-form-item>
         <a-space>
-          <a-button type="primary" html-type="submit" style="width: 96px">搜索</a-button>
-          <a-button html-type="reset" @click="doClear">重置</a-button>
+          <a-button type="primary" html-type="submit" style="width: 90px">搜索</a-button>
+          <a-button html-type="reset" @click="doClear" style="width: 90px">重置</a-button>
         </a-space>
       </a-form-item>
 

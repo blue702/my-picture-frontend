@@ -22,6 +22,16 @@
           + 创建图片
         </a-button>
         <a-button :icon="h(EditOutlined)" @click="doBatchEdit"> 批量编辑</a-button>
+        <a-button
+          type="primary"
+          ghost
+          :icon="h(BarChartOutlined)"
+          :href="`/space_analyze?spaceId=${id}`"
+          target="_blank"
+        >
+          空间分析
+        </a-button>
+
       </a-space>
     </a-flex>
     <!--  搜索组件  -->
@@ -67,7 +77,7 @@ import PictureList from '@/components/PictureList.vue'
 import { SPACE_LEVEL_COLOUR_MAP, SPACE_LEVEL_MAP } from '@/constants/space.ts'
 import PictureSearchForm from '@/components/PictureSearchForm.vue'
 import BatchEditPictureModal from '@/components/BatchEditPictureModal.vue'
-import { EditOutlined } from '@ant-design/icons-vue'
+import { EditOutlined,BarChartOutlined } from '@ant-design/icons-vue'
 
 const props = defineProps<{
   id: string | number
