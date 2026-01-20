@@ -115,7 +115,7 @@ defineExpose({
 
 </script>
 
-<style>
+<style scoped>
 .image-cropper {
   text-align: center;
 }

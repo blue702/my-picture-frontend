@@ -13,6 +13,7 @@ import MySpacePage from '@/pages/MySpacePage.vue'
 import SpaceDetailPage from '@/pages/SpaceDetailPage.vue'
 import SearchPicturePage from '@/pages/SearchPicturePage.vue'
 import SpaceAnalyzePage from '@/pages/SpaceAnalyzePage.vue'
+import SpaceUserManagePage from '@/pages/admin/SpaceUserManagePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,6 +68,12 @@ const router = createRouter({
       path: '/space_analyze',
       name: '空间分析',
       component: SpaceAnalyzePage,
+    },
+    {
+      path: '/spaceUserManage/:id',
+      name: '空间成员管理',
+      component: SpaceUserManagePage,
+      props: true, // 开启 props 模式，让路由参数自动注入组件 props
     },
     {
       path: '/admin/pictureManage',
