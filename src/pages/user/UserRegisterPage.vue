@@ -10,7 +10,12 @@
       autocomplete="off"
       @finish="handleSubmit"
     >
-      <a-form-item name="userAccount" :rules="[{ required: true, message: '请输入账号' }]">
+      <a-form-item
+        name="userAccount"
+        :rules="[
+          { required: true, message: '请输入账号' },
+          { min: 4, message: '账号不能小于 4 位' },
+          ]">
         <a-input v-model:value="formState.userAccount" placeholder="请输入账号" />
       </a-form-item>
       <a-form-item
@@ -68,6 +73,7 @@ const handleSubmit = async (values: any) => {
   const res = await userRegisterUsingPost(values)
   // 注册成功，跳转到登录页面
   if (res.data.code === 0 && res.data.data) {
+    console.log('注册成功')
     message.success('注册成功')
     router.push({
       path: '/user/login',

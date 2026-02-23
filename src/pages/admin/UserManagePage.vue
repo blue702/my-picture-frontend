@@ -33,7 +33,10 @@
           {{ dayjs(record.updateTime).format('YYYY-MM-DD HH:mm:ss') }}
         </template>
         <template v-else-if="column.key === 'action'">
-          <a-button danger @click="doDelete(record.id)">删除</a-button>
+          <a-space wrap>
+            <a-button :href="`/user/profile/${record.id}`">编辑</a-button>
+            <a-button danger @click="doDelete(record.id)">删除</a-button>
+          </a-space>
         </template>
       </template>
 

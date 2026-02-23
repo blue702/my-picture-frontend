@@ -29,7 +29,7 @@
               <template #overlay>
                 <a-menu>
                   <a-menu-item>
-                    <router-link to="">
+                    <router-link :to="`/user/profile/${loginUserStore.loginUser.id}`">
                       <UserOutlined />
                       个人信息
                     </router-link>

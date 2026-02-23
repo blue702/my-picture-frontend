@@ -645,6 +645,15 @@ declare namespace API {
     filepath?: string
   }
 
+  type updateUserUsingPOSTParams = {
+    id?: number
+    userAvatar?: string
+    userName?: string
+    userPassword?: string
+    userProfile?: string
+    userRole?: string
+  }
+
   type uploadPictureUsingPOSTParams = {
     category?: string
     fileUrl?: string
@@ -700,14 +709,6 @@ declare namespace API {
     checkPassword?: string
     userAccount?: string
     userPassword?: string
-  }
-
-  type UserUpdateRequest = {
-    id?: number
-    userAvatar?: string
-    userName?: string
-    userProfile?: string
-    userRole?: string
   }
 
   type UserVO = {
